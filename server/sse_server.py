@@ -1,8 +1,9 @@
-from asyncio import sleep
 import tornado.ioloop
 import tornado.web
 
 push_flag = True
+
+from asyncio import sleep
 
 class ServerSentEvent(tornado.web.RequestHandler):
     def __init__(self, *args, **kwargs):
@@ -23,7 +24,8 @@ class ServerSentEvent(tornado.web.RequestHandler):
             if push_flag:
                 print("Connecting...")
                 self.write("event: message\n")
-                self.write("data: " + "<a class=\"text text-success\" target=\"_blank\" href=\"https://www.google.com\">server data<a/>" + "\n\n")
+                self.write(
+                    "data: " + "<a class=\"text text-success\" target=\"_blank\" href=\"https://www.google.com\">server data<a/>" + "\n\n")
                 self.flush()
                 await sleep(1)
 
@@ -37,5 +39,5 @@ def make_app():
 if __name__ == "__main__":
     app = make_app()
     app.listen(8000)
-    print("SSE service start")
+    print("SSE service starts")
     tornado.ioloop.IOLoop.current().start()
